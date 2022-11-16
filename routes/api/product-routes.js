@@ -8,9 +8,8 @@ router.get('/', async (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
   try {
-    const ProductData = await LibraryCard.findAll({
-      include: [{ model: Category }],
-      include: [{ model: Tag }],
+    const ProductData = await Product.findAll({
+      include: [{ model: Category, Tag }],
     });
     res.status(200).json(ProductData);
   } catch (err) {
@@ -24,8 +23,7 @@ router.get('/:id', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const ProductData = await Product.findByPk(req.params.id, {
-      include: [{ model: Category }],
-      include: [{ model: Tag }],
+      include: [{ model: Category, Tag }],
     });
 
     if (!ProductData) {
